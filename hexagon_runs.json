@@ -293,7 +293,7 @@ var hexagonRuns =({
 			},
 			"properties" : {
 				"firstrun" : "2018-08-24",
-				"NumberOfActivities" : 6
+				"NumberOfActivities" : 8
 			}
 		},
 		{
@@ -356,7 +356,7 @@ var hexagonRuns =({
 			},
 			"properties" : {
 				"firstrun" : "2017-04-06",
-				"NumberOfActivities" : 12
+				"NumberOfActivities" : 13
 			}
 		},
 		{
@@ -440,7 +440,7 @@ var hexagonRuns =({
 			},
 			"properties" : {
 				"firstrun" : "2017-04-11",
-				"NumberOfActivities" : 14
+				"NumberOfActivities" : 15
 			}
 		},
 		{
@@ -566,7 +566,7 @@ var hexagonRuns =({
 			},
 			"properties" : {
 				"firstrun" : "2017-03-17",
-				"NumberOfActivities" : 18
+				"NumberOfActivities" : 19
 			}
 		},
 		{
@@ -881,7 +881,7 @@ var hexagonRuns =({
 			},
 			"properties" : {
 				"firstrun" : "2017-04-06",
-				"NumberOfActivities" : 12
+				"NumberOfActivities" : 14
 			}
 		},
 		{
@@ -1826,7 +1826,7 @@ var hexagonRuns =({
 			},
 			"properties" : {
 				"firstrun" : "2017-04-28",
-				"NumberOfActivities" : 16
+				"NumberOfActivities" : 17
 			}
 		},
 		{
@@ -2003,6 +2003,27 @@ var hexagonRuns =({
 				"type" : "Polygon",
 				"coordinates" : [
 					[
+						[ 6.0019340227, 52.3068270803 ],
+						[ 5.9983221298, 52.3107376831 ],
+						[ 5.9909905999, 52.3107753559 ],
+						[ 5.9872722471, 52.3069024175 ],
+						[ 5.9908848035, 52.3029921484 ],
+						[ 5.9982150493, 52.3029544841 ],
+						[ 6.0019340227, 52.3068270803 ]
+					]
+				]
+			},
+			"properties" : {
+				"firstrun" : "2018-11-22",
+				"NumberOfActivities" : 1
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
 						[ 5.9680799065, 52.2408361359 ],
 						[ 5.9644703676, 52.2447457493 ],
 						[ 5.957149674, 52.2447813083 ],
@@ -2078,7 +2099,7 @@ var hexagonRuns =({
 			},
 			"properties" : {
 				"firstrun" : "2017-07-06",
-				"NumberOfActivities" : 1
+				"NumberOfActivities" : 2
 			}
 		},
 		{
@@ -2255,6 +2276,27 @@ var hexagonRuns =({
 				"type" : "Polygon",
 				"coordinates" : [
 					[
+						[ 5.9688939816, 52.3031024147 ],
+						[ 5.9652794783, 52.3070120146 ],
+						[ 5.9579485279, 52.3070476379 ],
+						[ 5.9542333649, 52.3031736534 ],
+						[ 5.9578485303, 52.2992643874 ],
+						[ 5.9651781968, 52.299228772 ],
+						[ 5.9688939816, 52.3031024147 ]
+					]
+				]
+			},
+			"properties" : {
+				"firstrun" : "2018-10-22",
+				"NumberOfActivities" : 1
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
 						[ 5.4518968571, 52.1760859486 ],
 						[ 5.4482473421, 52.1799797706 ],
 						[ 5.4409369906, 52.1799833359 ],
@@ -2309,7 +2351,7 @@ var hexagonRuns =({
 			},
 			"properties" : {
 				"firstrun" : "2017-04-28",
-				"NumberOfActivities" : 17
+				"NumberOfActivities" : 18
 			}
 		},
 		{
@@ -2393,7 +2435,7 @@ var hexagonRuns =({
 			},
 			"properties" : {
 				"firstrun" : "2017-05-19",
-				"NumberOfActivities" : 12
+				"NumberOfActivities" : 13
 			}
 		},
 		{
@@ -2603,7 +2645,7 @@ var hexagonRuns =({
 			},
 			"properties" : {
 				"firstrun" : "2017-03-17",
-				"NumberOfActivities" : 42
+				"NumberOfActivities" : 45
 			}
 		},
 		{
@@ -3191,7 +3233,7 @@ var hexagonRuns =({
 			},
 			"properties" : {
 				"firstrun" : "2018-09-17",
-				"NumberOfActivities" : 4
+				"NumberOfActivities" : 5
 			}
 		},
 		{
@@ -3254,7 +3296,7 @@ var hexagonRuns =({
 			},
 			"properties" : {
 				"firstrun" : "2017-03-17",
-				"NumberOfActivities" : 22
+				"NumberOfActivities" : 23
 			}
 		},
 		{
@@ -3338,7 +3380,7 @@ var hexagonRuns =({
 			},
 			"properties" : {
 				"firstrun" : "2017-03-31",
-				"NumberOfActivities" : 1
+				"NumberOfActivities" : 2
 			}
 		},
 		{
@@ -3548,7 +3590,7 @@ var hexagonRuns =({
 			},
 			"properties" : {
 				"firstrun" : "2017-04-06",
-				"NumberOfActivities" : 10
+				"NumberOfActivities" : 12
 			}
 		},
 		{
@@ -3779,7 +3821,7 @@ var hexagonRuns =({
 			},
 			"properties" : {
 				"firstrun" : "2017-04-28",
-				"NumberOfActivities" : 15
+				"NumberOfActivities" : 16
 			}
 		},
 		{
@@ -3800,7 +3842,7 @@ var hexagonRuns =({
 			},
 			"properties" : {
 				"firstrun" : "2017-06-16",
-				"NumberOfActivities" : 3
+				"NumberOfActivities" : 4
 			}
 		},
 		{
@@ -4304,7 +4346,7 @@ var hexagonRuns =({
 			},
 			"properties" : {
 				"firstrun" : "2018-09-17",
-				"NumberOfActivities" : 1
+				"NumberOfActivities" : 2
 			}
 		},
 		{
@@ -4355,19 +4397,19 @@ var hexagonRuns =({
 				"type" : "Polygon",
 				"coordinates" : [
 					[
-						[ 5.4191969415, 52.4446318922 ],
-						[ 5.4155224283, 52.4485245014 ],
-						[ 5.4081677441, 52.4485260408 ],
-						[ 5.404488867, 52.4446349707 ],
-						[ 5.4081640279, 52.4407427004 ],
-						[ 5.4155174184, 52.4407411613 ],
-						[ 5.4191969415, 52.4446318922 ]
+						[ 6.0018263218, 52.2990438797 ],
+						[ 5.9982150493, 52.3029544841 ],
+						[ 5.9908848035, 52.3029921484 ],
+						[ 5.987167114, 52.2991191998 ],
+						[ 5.9907790497, 52.295208929 ],
+						[ 5.9981080119, 52.2951712732 ],
+						[ 6.0018263218, 52.2990438797 ]
 					]
 				]
 			},
 			"properties" : {
-				"firstrun" : "2014-08-29",
-				"NumberOfActivities" : 4
+				"firstrun" : "2018-11-22",
+				"NumberOfActivities" : 1
 			}
 		},
 		{
@@ -4446,6 +4488,27 @@ var hexagonRuns =({
 						[ 5.4302241973, 52.4407367142 ],
 						[ 5.4375775853, 52.4407338062 ],
 						[ 5.4412590471, 52.4446238518 ]
+					]
+				]
+			},
+			"properties" : {
+				"firstrun" : "2014-08-29",
+				"NumberOfActivities" : 4
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 5.4191969415, 52.4446318922 ],
+						[ 5.4155224283, 52.4485245014 ],
+						[ 5.4081677441, 52.4485260408 ],
+						[ 5.404488867, 52.4446349707 ],
+						[ 5.4081640279, 52.4407427004 ],
+						[ 5.4155174184, 52.4407411613 ],
+						[ 5.4191969415, 52.4446318922 ]
 					]
 				]
 			},
@@ -4787,7 +4850,7 @@ var hexagonRuns =({
 			},
 			"properties" : {
 				"firstrun" : "2017-03-23",
-				"NumberOfActivities" : 32
+				"NumberOfActivities" : 35
 			}
 		},
 		{
@@ -5123,7 +5186,7 @@ var hexagonRuns =({
 			},
 			"properties" : {
 				"firstrun" : "2017-06-16",
-				"NumberOfActivities" : 3
+				"NumberOfActivities" : 4
 			}
 		},
 		{
@@ -5207,6 +5270,27 @@ var hexagonRuns =({
 			},
 			"properties" : {
 				"firstrun" : "2014-05-04",
+				"NumberOfActivities" : 1
+			}
+		},
+		{
+			"type" : "Feature",
+			"geometry" : {
+				"type" : "Polygon",
+				"coordinates" : [
+					[
+						[ 6.0128754976, 52.3028777922 ],
+						[ 6.0092648888, 52.3067887301 ],
+						[ 6.0019340227, 52.3068270803 ],
+						[ 5.9982150493, 52.3029544841 ],
+						[ 6.0018263218, 52.2990438797 ],
+						[ 6.0091559041, 52.2990055381 ],
+						[ 6.0128754976, 52.3028777922 ]
+					]
+				]
+			},
+			"properties" : {
+				"firstrun" : "2018-11-22",
 				"NumberOfActivities" : 1
 			}
 		},
@@ -5396,7 +5480,7 @@ var hexagonRuns =({
 			},
 			"properties" : {
 				"firstrun" : "2017-03-23",
-				"NumberOfActivities" : 16
+				"NumberOfActivities" : 18
 			}
 		},
 		{
@@ -5585,7 +5669,7 @@ var hexagonRuns =({
 			},
 			"properties" : {
 				"firstrun" : "2017-03-31",
-				"NumberOfActivities" : 8
+				"NumberOfActivities" : 9
 			}
 		},
 		{
@@ -5963,7 +6047,7 @@ var hexagonRuns =({
 			},
 			"properties" : {
 				"firstrun" : "2017-04-06",
-				"NumberOfActivities" : 7
+				"NumberOfActivities" : 8
 			}
 		},
 		{
