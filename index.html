@@ -120,7 +120,7 @@
 
 		}
 
-		div.innerHTML = '<h4>Waar heb ik gelopen!</h4>' + '<br>' + 'Er zijn in Nederland 65.021 hexagons (ca 500m x 500m). Tot nu toe heb ik in 288 hexagons gelopen.' + '<br>' + '<br>' + '<h4>Legenda</h4>' + labels.join('<br>');
+		div.innerHTML = '<h4>Waar heb ik gelopen!</h4>' + '<br>' + 'In' + '<b> 292 </b>' + 'heb ik gelopen. Er zijn in Nederland 65.021 hexagons in Nederland' + '<br>' + '<br>' + '<h4>Legenda</h4>' + labels.join('<br>');
 		return div;
 
 		};
@@ -138,9 +138,9 @@
 		};
 
 		info.update = function (props) {
-			this._div.innerHTML = '<h4>Bekijk de informatie</h4>' +  (props ?
+			this._div.innerHTML = '<h4>Hover over een hexagon voor meer informatie</h4>' +  (props ?
 				'<b>Eerste keer gelopen: </b>'+  props.firstrun + '<br />' + '<b>Aantal activiteiten: </b>' + props.NumberOfActivities
-				: 'Hover over een hexagon');
+				: '');
 		};
 
 		info.addTo(map);
