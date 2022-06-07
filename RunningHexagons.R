@@ -146,4 +146,7 @@ leaflet(runningHexagons,
   addControl(paste("<h3> Running Hexagons </h3>", "There are 65021 hexagons in <br> the Netherlands. <br> I ran in ",  "<b>", nrow(runningHexagons), "</b> hexagons." ), position = "topleft")
 
 
+# Save HTML-file
+saveWidget(runningHexagons, "index.html",)
+
 #plot(runningHexagons)
