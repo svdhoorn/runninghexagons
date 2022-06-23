@@ -7,6 +7,7 @@ library(leaflet)
 library(dplyr)
 library(sf)
 library(geojsonsf)
+library(htmlwidgets)
 
 workingdir <- dirname(rstudioapi::getSourceEditorContext()$path)
 datadir <- paste0(workingdir, "/data")
