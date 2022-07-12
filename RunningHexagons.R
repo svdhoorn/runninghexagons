@@ -100,7 +100,7 @@ pal <- colorBin(
   bins = 4
 )
 
-
+indexfile <- 
 leaflet(runningHexagons, 
         options = leafletOptions(
           zoomControl = FALSE
@@ -126,7 +126,7 @@ leaflet(runningHexagons,
     smoothFactor = 0.5,
     opacity = 1.0, 
     fillOpacity = 0.5,
-    popup = paste(runningHexagons$name, "<br>", runningHexagons$count),
+    popup = paste("First run: ", runningHexagons$name, "<br>", "Number of runs: ", runningHexagons$count),
     highlightOptions = highlightOptions(color = "white", 
                                         weight = 2,
                                         bringToFront = TRUE),
@@ -148,6 +148,6 @@ leaflet(runningHexagons,
 
 
 # Save HTML-file
-saveWidget(runningHexagons, "index.html",)
+saveWidget(indexfile, "index.html")
 
 #plot(runningHexagons)
