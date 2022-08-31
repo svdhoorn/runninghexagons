@@ -93,7 +93,6 @@ pal <- colorNumeric(
   domain = runningHexagons$count
 )
 
-
 pal <- colorBin(
   palette = "BuPu",
   domain,
@@ -126,7 +125,7 @@ leaflet(runningHexagons,
     smoothFactor = 0.5,
     opacity = 1.0, 
     fillOpacity = 0.5,
-    popup = paste("First run: ", runningHexagons$name, "<br>", "Number of runs: ", runningHexagons$count),
+    popup = paste("<b>First run: </b>", runningHexagons$name, "<br>", "<b>Number of runs: </b>", runningHexagons$count),
     highlightOptions = highlightOptions(color = "white", 
                                         weight = 2,
                                         bringToFront = TRUE),
@@ -147,7 +146,7 @@ leaflet(runningHexagons,
   addControl(paste("<h3> Running Hexagons </h3>", "There are 65021 hexagons in <br> the Netherlands. <br> I ran in ",  "<b>", nrow(runningHexagons), "</b> hexagons." ), position = "topleft")
 
 
+indexfile
+
 # Save HTML-file
 saveWidget(indexfile, "index.html")
-
-#plot(runningHexagons)
