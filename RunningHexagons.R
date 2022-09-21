@@ -89,14 +89,14 @@ bbox[4] <- bbox[4] + (0.5 * yrange) # ymax - top
 # Create a continuous palette function
 pal <- colorNumeric(
   palette = "BuPu",
-  n = 4,
+  n = 5,
   domain = runningHexagons$count
 )
 
 pal <- colorBin(
   palette = "BuPu",
   domain,
-  bins = 4
+  bins = 5
 )
 
 indexfile <- 
