@@ -119,12 +119,12 @@ leaflet(runningHexagons,
   addProviderTiles(providers$Stamen.Toner, group = "Toner") %>%
   addProviderTiles(providers$Stamen.TonerLite, group = "Toner Lite") %>%
   addPolygons(
-    fillColor = ~colorBin('BuPu',count, 4)(count),
+    fillColor = ~colorBin('BuPu',count, 6)(count),
     #color = "#444444", 
     weight = 1, 
     smoothFactor = 0.5,
     opacity = 1.0, 
-    fillOpacity = 0.5,
+    fillOpacity = 0.9,
     popup = paste("<b>First run: </b>", runningHexagons$name, "<br>", "<b>Number of runs: </b>", runningHexagons$count),
     highlightOptions = highlightOptions(color = "white", 
                                         weight = 2,
@@ -139,9 +139,9 @@ leaflet(runningHexagons,
   ) %>%
   addLegend(
     position = "bottomleft",
-    pal = colorBin('BuPu', runningHexagons$count, 4),
+    pal = colorBin('BuPu', runningHexagons$count, 6),
     values = runningHexagons$count,
-    title = "Number of Runs") %>%
+    title = "Number of runs") %>%
   
   addControl(paste("<h3> Running Hexagons </h3>", "There are 65021 hexagons in <br> the Netherlands. <br> I ran in ",  "<b>", nrow(runningHexagons), "</b> hexagons." ), position = "topleft")
 
