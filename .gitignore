@@ -1,7 +1,2 @@
-
 *.gpx
-
-.RData
-.Rhistory
-RunningHexagons - experiments.R
-.RDataTmp
+runninghexagons.qgz
