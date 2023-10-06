@@ -111,8 +111,6 @@ df_new_attr = df_new_attr[col_list_attr]
 df_attr_concat = pd.concat([df_existing_attr, df_new_attr])
 #df_attr_concat.to_csv("df_attr_concat.csv", sep=';', header=True)
 
-#### DIT MOET NOG GEFIXT WORDEN
-
 # SUM - count
 df_all_count = df_attr_concat.groupby(['uuid'])['count'].agg('sum')
 
