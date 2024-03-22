@@ -1,331 +1,331 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <!-- Documentation
+
+<head>
+	<!-- Documentation
   Example - https://stbere.github.io/leaflet-challenge/
   Load icon - https://jsfiddle.net/9aheo6xb/ 
   -->
 
-        <title>Running Hexagons</title>
+	<title>Running Hexagons</title>
 
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-        <!-- Stylesheet -->
-        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css" />
+	<!-- Stylesheet -->
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+		integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css" />
 
-        <!-- Javascript -->
-        <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
-        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.min.js"></script>
-		<script src='https://unpkg.com/@turf/turf@6/turf.min.js'></script>
+	<!-- Javascript -->
+	<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+		integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.min.js"></script>
+	<script src='https://unpkg.com/@turf/turf@6/turf.min.js'></script>
 
-        <style>
-            /* Define the styles for the sidebar */
-            .sidebar {
-                font-family: "Font Awesome 6 Free";
-                font-size: 15px;
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 250px;
-                height: 100%;
-                background-color: white;
-                border-right: 2px solid #ddd;
-                overflow: hidden;
-                transition: transform 0.3s ease-in-out;
-                z-index: 10;
-                padding: 20px;
-            }
+	<style>
+		/* Define the styles for the sidebar */
+		.sidebar {
+			font-family: "Font Awesome 6 Free";
+			font-size: 15px;
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 250px;
+			height: 100%;
+			background-color: white;
+			border-right: 2px solid #ddd;
+			overflow: hidden;
+			transition: transform 0.3s ease-in-out;
+			z-index: 10;
+			padding: 20px;
+		}
 
-            .sidebar h2 {
-                text-align: center;
-            }
-
-            /* Define the styles for the map */
-            .map {
-                position: fixed;
-                top: 0;
-                left: 250px;
-                width: calc(100% - 250px);
-                height: 100%;
-                z-index: 1;
-            }
-
-            input[type="checkbox"] {
-                display: none;
-            }
-
-            input[type="checkbox"] + label:before {
-                content: "";
-                display: inline-block;
-                width: 18px;
-                height: 18px;
-                margin-right: 10px;
-                position: relative;
-                top: 5px;
-                background-color: #fff;
-                border: 1px solid #ccc;
-            }
-
-            input[type="checkbox"]:checked + label:before {
-                background-color: #2ecc71;
-                border-color: #2ecc71;
-            }
-
-            input[type="checkbox"]:checked + label:after {
-                content: "\f00c";
-                font-family: "Font Awesome 5 Free";
-                font-weight: 1000;
-                color: #fff;
-                position: absolute;
-                left: 2px;
-                bottom: 6px;
-                font-size: 19px;
-            }
-			
-			label {
-                display: inline-block;
-                cursor: pointer;
-                margin-bottom: 10px;
-                position: relative;
-            }
-
-            label i {
-                margin-left: 5px;
-				font-style: normal;
-            }
-
-            .classLayersIcons {
-                text-align: center; /* Horizontally center the text (icon) */
-				font-weight: bold;
-                line-height: 30px; /* Vertically center the text (icon) */
-                color: black;
-            }
-
-            /*Legend specific*/
-            .legend-container {
-                background: white;
-                background: rgba(255, 255, 255, 0.8);
-                color: #555;
-            }
-			
-            .legend h4 {
-                text-align: center;
-                font-size: 16px;
-                margin: 2px 12px 8px;
-                color: #777;
-            }
-
-            .legend span {
-                position: relative;
-                bottom: 3px;
-            }
-			
-			.legend-style {
-			  width: 18px;
-			  height: 18px;
-			  float: left;
-			  margin: 0 8px 0 0;
-			  opacity: 0.7;
-			}
-			
-			.totalfeatures  {
-			  font-size: 20px;	
-			  font-weight: bold;
-			  text-align: center;
-			}
-			
-			.texthexagons {
+		.sidebar h2 {
 			text-align: center;
+		}
+
+		/* Define the styles for the map */
+		.map {
+			position: fixed;
+			top: 0;
+			left: 250px;
+			width: calc(100% - 250px);
+			height: 100%;
+			z-index: 1;
+		}
+
+		input[type="checkbox"] {
+			display: none;
+		}
+
+		input[type="checkbox"]+label:before {
+			content: "";
+			display: inline-block;
+			width: 18px;
+			height: 18px;
+			margin-right: 10px;
+			position: relative;
+			top: 5px;
+			background-color: #fff;
+			border: 1px solid #ccc;
+		}
+
+		input[type="checkbox"]:checked+label:before {
+			background-color: #2ecc71;
+			border-color: #2ecc71;
+		}
+
+		input[type="checkbox"]:checked+label:after {
+			content: "\f00c";
+			font-family: "Font Awesome 5 Free";
+			font-weight: 1000;
+			color: #fff;
+			position: absolute;
+			left: 2px;
+			bottom: 6px;
+			font-size: 19px;
+		}
+
+		label {
+			display: inline-block;
+			cursor: pointer;
+			margin-bottom: 10px;
+			position: relative;
+		}
+
+		label i {
+			margin-left: 5px;
+			font-style: normal;
+		}
+
+		.classLayersIcons {
+			text-align: center;
+			/* Horizontally center the text (icon) */
+			font-weight: bold;
+			line-height: 30px;
+			/* Vertically center the text (icon) */
+			color: black;
+		}
+
+		/*Legend specific*/
+		.legend-container {
+			background: white;
+			background: rgba(255, 255, 255, 0.8);
+			color: #555;
+		}
+
+		.legend h4 {
+			text-align: center;
+			font-size: 16px;
+			margin: 2px 12px 8px;
+			color: #777;
+		}
+
+		.legend span {
+			position: relative;
+			bottom: 3px;
+		}
+
+		.legend-style {
+			width: 18px;
+			height: 18px;
+			float: left;
+			margin: 0 8px 0 0;
+			opacity: 0.7;
+		}
+
+		.totalfeatures {
+			font-size: 20px;
+			font-weight: bold;
+			text-align: center;
+		}
+
+		.texthexagons {
+			text-align: center;
+		}
+
+		.label-icon {
+			font-family: "Font Awesome 6 Free";
+			font-size: 10;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="sidebar">
+		<!-- Add your sidebar content here -->
+		<h2>Running Hexagons</h2>
+
+		<input type="checkbox" id="stamenCheckbox" />
+		<label for="stamenCheckbox"><i class="classLayersIcons"> Stamen background</i> </label><br />
+
+		<input type="checkbox" id="runningHexagonsCheckbox" checked />
+		<label for="runningHexagonsCheckbox"><i class="fas fa-solid fa-person-running classLayersIcons"> Running
+				Hexagons</i> </label><br />
+
+		<input type="checkbox" id="labelsCheckbox" unchecked />
+		<label for="labelsCheckbox"><i class="fas fa-solid fa-person-running classLayersIcons"> Labels</i>
+		</label><br />
+
+		<p class="texthexagons">There are 56209 hexagons in the Neterlands.</p>
+		<p class="texthexagons">Hexagons completed:</p>
+		<p class="totalfeatures " id="total_features"></p>
+
+		<h4>Number of runs</h4>
+		<div id="legend-container"></div>
+
+
+	</div>
+
+	<div id="map" class="map"></div>
+
+	<script>
+		// Create the map
+		var map = L.map('map').setView([52.2, 5.8], 10);
+
+		var stamenLayer = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-background/{z}/{x}/{y}{r}.{ext}', {
+			attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+			subdomains: 'abcd',
+			minZoom: 0,
+			maxZoom: 20,
+			ext: 'png'
+		});
+
+		// Set up the OSM layer
+		L.tileLayer(
+			'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+			minZoom: 0,
+			maxZoom: 20
+		}).addTo(map);
+
+		document.getElementById('stamenCheckbox').addEventListener('change', function () {
+			if (this.checked) {
+				stamenLayer.addTo(map);
+			} else {
+				stamenLayer.removeFrom(map);
 			}
-			
-			.label-icon {
-				font-family: "Font Awesome 6 Free";
-				font-size: 10;
-			}
+		});
 
-			
-        </style>
-    </head>
-    <body>
-        <div class="sidebar">
-            <!-- Add your sidebar content here -->
-            <h2>Running Hexagons</h2>
-
-            <input type="checkbox" id="stamenCheckbox"/>
-            <label for="stamenCheckbox"><i class="classLayersIcons"> Stamen    background</i> </label><br />
-
-            <input type="checkbox" id="runningHexagonsCheckbox" checked />
-            <label for="runningHexagonsCheckbox"><i class="fas fa-solid fa-person-running classLayersIcons"> Running Hexagons</i> </label><br />
-			
-			<input type="checkbox" id="labelsCheckbox" unchecked />
-			<label for="labelsCheckbox"><i class="fas fa-solid fa-person-running classLayersIcons"> Labels</i> </label><br />
-			
-			<p class="texthexagons">There are 56209 hexagons in the Neterlands.</p>
-			<p class="texthexagons">Hexagons completed:</p>
-			<p class="totalfeatures "id="total_features"></p>
-			
-			<h4>Number of runs</h4>
-			<div id="legend-container"></div>
-			
-			
-        </div>
-
-        <div id="map" class="map"></div>
-
-        <script>
-                // Create the map
-            	var map = L.map('map').setView([52.2, 5.8], 10);
-
-            	var stamenLayer = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-background/{z}/{x}/{y}{r}.{ext}', {
-            		attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-            		subdomains: 'abcd',
-            		minZoom: 0,
-            		maxZoom: 20,
-            		ext: 'png'
-            	});
-
-            		// Set up the OSM layer
-            	L.tileLayer(
-            		'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            			minZoom: 0,
-            			maxZoom: 20
-            	}).addTo(map);
-				
-				document.getElementById('stamenCheckbox').addEventListener('change', function() {
-            		if (this.checked) {
-            			stamenLayer.addTo(map);
-            		} else {
-            			stamenLayer.removeFrom(map);
-            		}
-            	});
-				
-				// Create Layer Groups for labels
-				var labelLayerGroup = L.layerGroup();
+		// Create Layer Groups for labels
+		var labelLayerGroup = L.layerGroup();
 
 
-            // Populating the map with the runninghexagons geojson data
-            	fetch('runninghexagons.geojson')
-            		.then(function (response) {
-            			return response.json();
-            		})
-            		.then(function (data) {
-					
-					const features = data.features;
-					const totalFeatures = features.length;
-					console.log("Total: " + totalFeatures);
-					const totalFeaturesDiv = document.getElementById('total_features');
-					totalFeaturesDiv.textContent = totalFeatures;
+		// Populating the map with the runninghexagons geojson data
+		fetch('runninghexagons.geojson')
+			.then(function (response) {
+				return response.json();
+			})
+			.then(function (data) {
 
-            		function popup(feature, layer) {
-            		  var popupText =
-            				"<b>Number of times :</b> " + feature.properties.count + "<br>" +
-            				"<b>First time:</b> " + feature.properties.first_date + "<br>" +
-							"<b>Last time:</b> " + feature.properties.last_date;
-            		  layer.bindPopup(popupText, {
-            			closeButton: true,
-            			offset: L.point(0, -20)
-            		  });
-            		  layer.on('click', function() {
-            			layer.openPopup();
-            		  });
-            		}
+				const features = data.features;
+				const totalFeatures = features.length;
+				console.log("Total: " + totalFeatures);
+				const totalFeaturesDiv = document.getElementById('total_features');
+				totalFeaturesDiv.textContent = totalFeatures;
 
-					// get color depending on population density value
-					function getColor(d) {
-						return d > 299 ? '#b10026' :
-							d > 99  ? '#e31a1c' :
-							d > 49  ? '#fc4e2a' :
-							d > 9  ? '#fd8d3c' :
-							d > 4  ? '#feb24c' :
-							d > 1  ? '#fed976' :
-							'#ffffb2';
+				function popup(feature, layer) {
+					var popupText =
+						"<b>Number of times :</b> " + feature.properties.count + "<br>" +
+						"<b>First time:</b> " + feature.properties.first_date + "<br>" +
+						"<b>Last time:</b> " + feature.properties.last_date;
+					layer.bindPopup(popupText, {
+						closeButton: true,
+						offset: L.point(0, -20)
+					});
+					layer.on('click', function () {
+						layer.openPopup();
+					});
+				}
+
+				// get color depending on population density value
+				function getColor(d) {
+					return d > 299 ? '#b10026' :
+						d > 99 ? '#e31a1c' :
+							d > 49 ? '#fc4e2a' :
+								d > 9 ? '#fd8d3c' :
+									d > 4 ? '#feb24c' :
+										d > 1 ? '#fed976' :
+											'#ffffb2';
+				}
+
+				function style(feature) {
+					return {
+						weight: 2,
+						opacity: 1,
+						color: 'white',
+						dashArray: '3',
+						fillOpacity: 0.7,
+						fillColor: getColor(feature.properties.count)
+					};
+				}
+
+				var runningHexagons = L.geoJSON(data, {
+					onEachFeature:
+						popup,
+					style: style
+				}).addTo(map);
+
+
+				// Create labels and add them to the label layer group
+				data.features.forEach(function (feature) {
+					if (feature.properties && feature.properties.count) {
+						var centroid = turf.centroid(feature);
+						var coordinates = centroid.geometry.coordinates;
+
+						var labels = L.marker([coordinates[1], coordinates[0]], {
+							icon: L.divIcon({
+								className: 'label-icon',
+								html: feature.properties.count
+							})
+						});
+						labelLayerGroup.addLayer(labels);
 					}
+				});
 
-					function style(feature) {
-						return {
-							weight: 2,
-							opacity: 1,
-							color: 'white',
-							dashArray: '3',
-							fillOpacity: 0.7,
-							fillColor: getColor(feature.properties.count)
-						};
+				// Add the data and label layers to the layer groups
+				//dataLayerGroup.addLayer(runningHexagons);
+
+				document.getElementById('runningHexagonsCheckbox').addEventListener('change', function () {
+					if (this.checked) {
+						runningHexagons.addTo(map);
+					} else {
+						runningHexagons.removeFrom(map);
 					}
+				});
 
-					var runningHexagons = L.geoJSON(data, {
-								onEachFeature: 
-									popup,
-									style: style							
-						}).addTo(map);
-						
-			
-			        // Create labels and add them to the label layer group
-					data.features.forEach(function (feature) {
-						if (feature.properties && feature.properties.count) {
-						    var centroid = turf.centroid(feature);
-							var coordinates = centroid.geometry.coordinates;
-						
-							var labels = L.marker([coordinates[1], coordinates[0]], {
-								icon: L.divIcon({
-									className: 'label-icon',
-									html: feature.properties.count
-								})
-							});
-							labelLayerGroup.addLayer(labels);
-						}
-					});
-					
-					// Add the data and label layers to the layer groups
-					//dataLayerGroup.addLayer(runningHexagons);
-					
-					 // Create a layer control to toggle the layers
-					<!-- var overlayMaps = { -->
-						<!-- //"Data": dataLayerGroup, -->
-						<!-- "Labels": labelLayerGroup -->
-					<!-- }; -->
-					
-					<!-- L.control.layers(null, overlayMaps).addTo(map); -->
-					
-			
-					document.getElementById('runningHexagonsCheckbox').addEventListener('change', function() {
-						if (this.checked) {
-							runningHexagons.addTo(map);
-						} else {
-							runningHexagons.removeFrom(map);
-						}
-					});
-					
-					document.getElementById('labelsCheckbox').addEventListener('change', function() {
-						if (this.checked) {
-							labelLayerGroup.addTo(map);
-						} else {
-							labelLayerGroup.removeFrom(map);
-						}
-					});
-				
-				}); //End of adding geojson data
+				document.getElementById('labelsCheckbox').addEventListener('change', function () {
+					if (this.checked) {
+						labelLayerGroup.addTo(map);
+					} else {
+						labelLayerGroup.removeFrom(map);
+					}
+				});
+
+			}); //End of adding geojson data
 
 
-			// Add Legend
-            var legendContainer = document.getElementById('legend-container');		
-			
-			legendContainer.innerHTML =  
-			'<div><span class="legend-style" style="background: #b10026;"></span> > 300</div> <br>' + 
-			'<div><span class="legend-style" style="background: #e31a1c;"></span> 100 - 299</div> <br>' + 
-			'<div><span class="legend-style" style="background: #fc4e2a;"></span> 50 - 99</div> <br>' + 
-			'<div><span class="legend-style" style="background: #fd8d3c;"></span> 10 - 49</div> <br>' + 
-			'<div><span class="legend-style" style="background: #feb24c;"></span> 5 - 9</div> <br>' + 
-			'<div><span class="legend-style" style="background: #fed976;"></span> 2 - 4</div> <br>' + 
+		// Add Legend
+		var legendContainer = document.getElementById('legend-container');
+
+		legendContainer.innerHTML =
+			'<div><span class="legend-style" style="background: #b10026;"></span> > 300</div> <br>' +
+			'<div><span class="legend-style" style="background: #e31a1c;"></span> 100 - 299</div> <br>' +
+			'<div><span class="legend-style" style="background: #fc4e2a;"></span> 50 - 99</div> <br>' +
+			'<div><span class="legend-style" style="background: #fd8d3c;"></span> 10 - 49</div> <br>' +
+			'<div><span class="legend-style" style="background: #feb24c;"></span> 5 - 9</div> <br>' +
+			'<div><span class="legend-style" style="background: #fed976;"></span> 2 - 4</div> <br>' +
 			'<div><span class="legend-style" style="background: #ffffb2;"></span> 1</div>';
 
 
 
-			
 
-        </script>
-    </body>
+
+	</script>
+</body>
+
 </html>
