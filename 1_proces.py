@@ -1,6 +1,5 @@
 # Description
 
-
 # TODO
 # Add a check if the gpx-file in new folder already exists in processed folder. So files are not processed multiple times
 
@@ -73,7 +72,7 @@ gdf_new_complete = gdf_new_complete[col_list]
 # Proces is split into two parts, geometry and attributes, which are merged later
 
 # Import existing Running Hexagons file
-rh_filename = 'runninghexagons.geojson'
+rh_filename = 'runninghexagons1.geojson'
 rh_file = pathlib.Path('.').absolute() / rh_filename
 gdf_existing = gpd.read_file(rh_file)
 
@@ -152,4 +151,3 @@ else:
 
 
 gdf_all_runs.to_file("runninghexagons.geojson", driver='GeoJSON')
-
