@@ -187,14 +187,6 @@
 		// Create the map
 		var map = L.map('map').setView([52.2, 5.8], 10);
 
-		var stamenLayer = L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner-background/{z}/{x}/{y}{r}.{ext}', {
-			attribution: 'Map tiles by <a href="http://stamen.com">Stamen Design</a>, <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-			subdomains: 'abcd',
-			minZoom: 0,
-			maxZoom: 20,
-			ext: 'png'
-		});
-
 		// Set up the OSM layer
 		L.tileLayer(
 			'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -202,17 +194,8 @@
 			maxZoom: 20
 		}).addTo(map);
 
-		document.getElementById('stamenCheckbox').addEventListener('change', function () {
-			if (this.checked) {
-				stamenLayer.addTo(map);
-			} else {
-				stamenLayer.removeFrom(map);
-			}
-		});
-
 		// Create Layer Groups for labels
 		var labelLayerGroup = L.layerGroup();
-
 
 		// Populating the map with the runninghexagons geojson data
 		fetch('runninghexagons.geojson')
