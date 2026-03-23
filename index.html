@@ -1,324 +1,462 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-
-<head>
-	<!-- Documentation
+  <head>
+    <!-- Documentation
   Example - https://stbere.github.io/leaflet-challenge/
   Load icon - https://jsfiddle.net/9aheo6xb/ 
   -->
 
-	<title>Running Hexagons</title>
+    <title>Running Hexagons</title>
 
-	<meta charset="utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-	<!-- Stylesheet -->
-	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
-		integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-	<link rel="stylesheet"
-		href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css" />
+    <!-- Stylesheet -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+      integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+      crossorigin=""
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"
+    />
 
-	<!-- Javascript -->
-	<script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
-		integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
-	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-	<script
-		src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.min.js"></script>
-	<script src='https://unpkg.com/@turf/turf@6/turf.min.js'></script>
+    <!-- Javascript -->
+    <script
+      src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"
+      integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM="
+      crossorigin=""
+    ></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.min.js"></script>
+    <script src="https://unpkg.com/@turf/turf@6/turf.min.js"></script>
 
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    />
 
-	<style>
-		/* Define the styles for the sidebar */
-		.sidebar {
-			font-family: "Candara";
-			font-size: 12px;
-			position: fixed;
-			top: 0;
-			left: 0;
-			width: 250px;
-			height: 100%;
-			background-color: white;
-			border-right: 2px solid #ddd;
-			overflow: hidden;
-			transition: transform 0.3s ease-in-out;
-			z-index: 10;
-			padding: 20px;
-		}
+    <style>
+      /* Define the styles for the sidebar */
+      .sidebar {
+        font-family: "Candara";
+        font-size: 12px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 250px;
+        height: 100%;
+        background-color: white;
+        border-right: 2px solid #ddd;
+        overflow: hidden;
+        transition: transform 0.3s ease-in-out;
+        z-index: 10;
+        padding: 20px;
+      }
 
-		.sidebar h2 {
-			text-align: center;
-		}
+      .sidebar h2 {
+        text-align: center;
+      }
 
-		/* Define the styles for the map */
-		.map {
-			position: fixed;
-			top: 0;
-			left: 250px;
-			width: calc(100% - 250px);
-			height: 100%;
-			z-index: 1;
-		}
+      /* Define the styles for the map */
+      .map {
+        position: fixed;
+        top: 0;
+        left: 250px;
+        width: calc(100% - 250px);
+        height: 100%;
+        z-index: 1;
+      }
 
-		/* Checkbox */
-		/* The container */
-		.container {
-			display: block;
-			position: relative;
-			padding-left: 35px;
-			margin-top: 20px;
-			margin-bottom: 20px;
-			cursor: pointer;
-			font-size: 15px;
-			-webkit-user-select: none;
-			-moz-user-select: none;
-			-ms-user-select: none;
-			user-select: none;
-		}
+      /* Checkbox */
+      /* The container */
+      .container {
+        display: block;
+        position: relative;
+        padding-left: 35px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        cursor: pointer;
+        font-size: 15px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
 
-		/* Hide the browser's default checkbox */
-		.container input {
-			position: absolute;
-			opacity: 0;
-			cursor: pointer;
-			height: 0;
-			width: 0;
-		}
+      /* Hide the browser's default checkbox */
+      .container input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+      }
 
-		/* Create a custom checkbox */
-		.checkmark {
-			position: absolute;
-			top: 0;
-			left: 0;
-			height: 25px;
-			width: 25px;
-			background-color: #eee;
-			border: solid rgb(140, 113, 113);
-		}
+      /* Create a custom checkbox */
+      .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 25px;
+        width: 25px;
+        background-color: #eee;
+        border: solid rgb(140, 113, 113);
+      }
 
-		/* On mouse-over, add a grey background color */
-		.container:hover input~.checkmark {
-			background-color: #ccc;
-		}
+      /* On mouse-over, add a grey background color */
+      .container:hover input ~ .checkmark {
+        background-color: #ccc;
+      }
 
-		/* When the checkbox is checked, add a blue background */
-		.container input:checked~.checkmark {
-			background-color: #2196F3;
-		}
+      /* When the checkbox is checked, add a blue background */
+      .container input:checked ~ .checkmark {
+        background-color: #2196f3;
+      }
 
-		/* Create the checkmark/indicator (hidden when not checked) */
-		.checkmark:after {
-			content: "";
-			position: absolute;
-			display: none;
-		}
+      /* Create the checkmark/indicator (hidden when not checked) */
+      .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+      }
 
-		/* Show the checkmark when checked */
-		.container input:checked~.checkmark:after {
-			display: block;
-		}
+      /* Show the checkmark when checked */
+      .container input:checked ~ .checkmark:after {
+        display: block;
+      }
 
-		/* Style the checkmark/indicator */
-		.container .checkmark:after {
-			left: 9px;
-			top: 5px;
-			width: 5px;
-			height: 10px;
-			border: solid white;
-			border-width: 0 3px 3px 0;
-			-webkit-transform: rotate(45deg);
-			-ms-transform: rotate(45deg);
-			transform: rotate(45deg);
-		}
+      /* Style the checkmark/indicator */
+      .container .checkmark:after {
+        left: 9px;
+        top: 5px;
+        width: 5px;
+        height: 10px;
+        border: solid white;
+        border-width: 0 3px 3px 0;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+      }
 
-		.classLayersIcons {
-			text-align: center;
-			/* Horizontally center the text (icon) */
-			font-weight: 20px;
-			line-height: 0px;
-			/* Vertically center the text (icon) */
-			color: rgb(22, 37, 20);
+      .classLayersIcons {
+        text-align: center;
+        /* Horizontally center the text (icon) */
+        font-weight: 20px;
+        line-height: 0px;
+        /* Vertically center the text (icon) */
+        color: rgb(22, 37, 20);
+      }
 
-		}
+      /*Legend specific*/
+      .legend-style {
+        width: 18px;
+        height: 18px;
+        float: left;
+        margin: 0 8px 0 0;
+        opacity: 0.7;
+      }
 
-		/*Legend specific*/
-		.legend-style {
-			width: 18px;
-			height: 18px;
-			float: left;
-			margin: 0 8px 0 0;
-			opacity: 0.7;
-		}
+      .totalfeatures {
+        font-size: 20px;
+        font-weight: bold;
+        text-align: center;
+      }
 
-		.totalfeatures {
-			font-size: 20px;
-			font-weight: bold;
-			text-align: center;
-		}
+      .texthexagons {
+        text-align: center;
+        margin-top: 20px;
+      }
 
-		.texthexagons {
-			text-align: center;
-			margin-top: 20px;
-		}
-	</style>
-</head>
+      /* Portrait warning message */
+      .portrait-warning {
+        position: fixed;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        /* background: rgba(0, 0, 0, 0.85); */
+        z-index: 9999;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease;
+        /* Ensure full coverage */
+        overflow: hidden;
+      }
 
-<body>
-	<div class="sidebar">
-		<!-- Add your sidebar content here -->
-		<h4 style="text-align: center"><a href="https://svdhoorn.github.io"><i class="glyphicon glyphicon-home"></i></a>
-		</h4>
-		<h3>Running Hexagons</h3>
+      .portrait-warning.show {
+        opacity: 1;
+        visibility: visible;
+      }
 
-		<label class="container"><i class="fa-solid fa-person-running classLayersIcons"></i> Running hexagons
-			<input type="checkbox" id="runningHexagonsCheckbox" checked="checked">
-			<span class="checkmark"></span>
-		</label>
+      .portrait-warning-content {
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+        max-width: 90%;
+        max-height: 90%;
+        text-align: center;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        /* Prevent content from overflowing */
+        overflow: auto;
+        /* Ensure proper centering within flex container */
+        margin: auto;
+      }
 
-		<label class="container"> Labels
-			<input type="checkbox" id="labelsCheckbox" unchecked="unchecked">
-			<span class="checkmark"></span>
-		</label>
+      .portrait-warning-content h3 {
+        margin-top: 0;
+        color: #2196f3;
+      }
 
+      .portrait-warning-content p {
+        font-size: 14px;
+        line-height: 1.5;
+      }
 
-		<p class="texthexagons">There are 56209 hexagons in the Netherlands.</p>
-		<p class="texthexagons">Hexagons completed:</p>
-		<p class="totalfeatures " id="total_features"></p>
-		<hr>
-		<h4 style="text-align: center;">Number of runs</h4>
-		<div id="legend-container"></div>
+      .portrait-warning-close {
+        margin-top: 20px;
+        padding: 10px 20px;
+        background: #2196f3;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
 
+      /* Make sidebar scrollable in landscape mode */
+      @media (orientation: landscape) and (max-width: 768px) {
+        .sidebar {
+          overflow-y: auto;
+          overflow-x: hidden;
+        }
+      }
+    </style>
+  </head>
 
-	</div>
+  <body>
+    <div class="sidebar">
+      <!-- Add your sidebar content here -->
+      <h4 style="text-align: center">
+        <a href="https://svdhoorn.github.io"
+          ><i class="glyphicon glyphicon-home"></i
+        ></a>
+      </h4>
+      <h3>Running Hexagons</h3>
 
-	<div id="map" class="map"></div>
+      <label class="container"
+        ><i class="fa-solid fa-person-running classLayersIcons"></i> Running
+        hexagons
+        <input type="checkbox" id="runningHexagonsCheckbox" checked="checked" />
+        <span class="checkmark"></span>
+      </label>
 
-	<script>
-		// Create the map
-		var map = L.map('map').setView([52.2, 5.8], 10);
+      <label class="container">
+        Labels
+        <input type="checkbox" id="labelsCheckbox" unchecked="unchecked" />
+        <span class="checkmark"></span>
+      </label>
 
-		// Set up the OSM layer
-		L.tileLayer(
-			'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-			minZoom: 0,
-			maxZoom: 20
-		}).addTo(map);
+      <p class="texthexagons">There are 56209 hexagons in the Netherlands.</p>
+      <p class="texthexagons">Hexagons completed:</p>
+      <p class="totalfeatures" id="total_features"></p>
+      <hr />
+      <h4 style="text-align: center">Number of runs</h4>
+      <div id="legend-container"></div>
+    </div>
 
-		// Create Layer Groups for labels
-		var labelLayerGroup = L.layerGroup();
+    <div id="map" class="map"></div>
 
-		// Populating the map with the runninghexagons geojson data
-		fetch('runninghexagons.geojson')
-			.then(function (response) {
-				return response.json();
-			})
-			.then(function (data) {
+    <div id="portraitWarning" class="portrait-warning">
+      <div class="portrait-warning-content">
+        <h3>
+          <i class="fa-solid fa-mobile-screen"></i> Best viewed in landscape
+        </h3>
+        <p>This map works best in landscape mode on your device.</p>
+        <p>Please rotate your phone for the optimal experience.</p>
+        <button class="portrait-warning-close" onclick="closePortraitWarning()">
+          Got it!
+        </button>
+      </div>
+    </div>
 
-				const features = data.features;
-				const totalFeatures = features.length;
-				console.log("Total: " + totalFeatures);
-				const totalFeaturesDiv = document.getElementById('total_features');
-				totalFeaturesDiv.textContent = totalFeatures;
+    <script>
+      // Create the map
+      var map = L.map("map").setView([52.2, 5.8], 10);
 
-				function popup(feature, layer) {
-					var popupText =
-						"<b>Number of times :</b> " + feature.properties.count + "<br>" +
-						"<b>First time:</b> " + feature.properties.first_date + "<br>" +
-						"<b>Last time:</b> " + feature.properties.last_date;
-					layer.bindPopup(popupText, {
-						closeButton: true,
-						offset: L.point(0, -20)
-					});
-					layer.on('click', function () {
-						layer.openPopup();
-					});
-				}
+      // Set up the OSM layer
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        minZoom: 0,
+        maxZoom: 20,
+      }).addTo(map);
 
-				// get color depending on population density value
-				function getColor(d) {
-					return d > 299 ? '#b10026' :
-						d > 99 ? '#e31a1c' :
-							d > 49 ? '#fc4e2a' :
-								d > 9 ? '#fd8d3c' :
-									d > 4 ? '#feb24c' :
-										d > 1 ? '#fed976' :
-											'#ffffb2';
-				}
+      // Create Layer Groups for labels
+      var labelLayerGroup = L.layerGroup();
 
-				function style(feature) {
-					return {
-						weight: 2,
-						opacity: 1,
-						color: 'white',
-						dashArray: '3',
-						fillOpacity: 0.7,
-						fillColor: getColor(feature.properties.count)
-					};
-				}
+      // Populating the map with the runninghexagons geojson data
+      fetch("runninghexagons.geojson")
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (data) {
+          const features = data.features;
+          const totalFeatures = features.length;
+          console.log("Total: " + totalFeatures);
+          const totalFeaturesDiv = document.getElementById("total_features");
+          totalFeaturesDiv.textContent = totalFeatures;
 
-				var runningHexagons = L.geoJSON(data, {
-					onEachFeature:
-						popup,
-					style: style
-				}).addTo(map);
+          function popup(feature, layer) {
+            var popupText =
+              "<b>Number of times :</b> " +
+              feature.properties.count +
+              "<br>" +
+              "<b>First time:</b> " +
+              feature.properties.first_date +
+              "<br>" +
+              "<b>Last time:</b> " +
+              feature.properties.last_date;
+            layer.bindPopup(popupText, {
+              closeButton: true,
+              offset: L.point(0, -20),
+            });
+            layer.on("click", function () {
+              layer.openPopup();
+            });
+          }
 
+          // get color depending on population density value
+          function getColor(d) {
+            return d > 299
+              ? "#b10026"
+              : d > 99
+                ? "#e31a1c"
+                : d > 49
+                  ? "#fc4e2a"
+                  : d > 9
+                    ? "#fd8d3c"
+                    : d > 4
+                      ? "#feb24c"
+                      : d > 1
+                        ? "#fed976"
+                        : "#ffffb2";
+          }
 
-				// Create labels and add them to the label layer group
-				data.features.forEach(function (feature) {
-					if (feature.properties && feature.properties.count) {
-						var centroid = turf.centroid(feature);
-						var coordinates = centroid.geometry.coordinates;
+          function style(feature) {
+            return {
+              weight: 2,
+              opacity: 1,
+              color: "white",
+              dashArray: "3",
+              fillOpacity: 0.7,
+              fillColor: getColor(feature.properties.count),
+            };
+          }
 
-						var labels = L.marker([coordinates[1], coordinates[0]], {
-							icon: L.divIcon({
-								className: 'label-icon',
-								html: feature.properties.count
-							})
-						});
-						labelLayerGroup.addLayer(labels);
-					}
-				});
+          var runningHexagons = L.geoJSON(data, {
+            onEachFeature: popup,
+            style: style,
+          }).addTo(map);
 
-				// Add the data and label layers to the layer groups
-				//dataLayerGroup.addLayer(runningHexagons);
+          // Create labels and add them to the label layer group
+          data.features.forEach(function (feature) {
+            if (feature.properties && feature.properties.count) {
+              var centroid = turf.centroid(feature);
+              var coordinates = centroid.geometry.coordinates;
 
-				document.getElementById('runningHexagonsCheckbox').addEventListener('change', function () {
-					if (this.checked) {
-						runningHexagons.addTo(map);
-					} else {
-						runningHexagons.removeFrom(map);
-					}
-				});
+              var labels = L.marker([coordinates[1], coordinates[0]], {
+                icon: L.divIcon({
+                  className: "label-icon",
+                  html: feature.properties.count,
+                }),
+              });
+              labelLayerGroup.addLayer(labels);
+            }
+          });
 
-				document.getElementById('labelsCheckbox').addEventListener('change', function () {
-					if (this.checked) {
-						labelLayerGroup.addTo(map);
-					} else {
-						labelLayerGroup.removeFrom(map);
-					}
-				});
+          // Add the data and label layers to the layer groups
+          //dataLayerGroup.addLayer(runningHexagons);
 
-			}); //End of adding geojson data
+          document
+            .getElementById("runningHexagonsCheckbox")
+            .addEventListener("change", function () {
+              if (this.checked) {
+                runningHexagons.addTo(map);
+              } else {
+                runningHexagons.removeFrom(map);
+              }
+            });
 
+          document
+            .getElementById("labelsCheckbox")
+            .addEventListener("change", function () {
+              if (this.checked) {
+                labelLayerGroup.addTo(map);
+              } else {
+                labelLayerGroup.removeFrom(map);
+              }
+            });
+        }); //End of adding geojson data
 
-		// Add Legend
-		var legendContainer = document.getElementById('legend-container');
+      // Add Legend
+      var legendContainer = document.getElementById("legend-container");
 
-		legendContainer.innerHTML =
-			'<div><span class="legend-style" style="background: #b10026;"></span> > 300</div> <br>' +
-			'<div><span class="legend-style" style="background: #e31a1c;"></span> 100 - 299</div> <br>' +
-			'<div><span class="legend-style" style="background: #fc4e2a;"></span> 50 - 99</div> <br>' +
-			'<div><span class="legend-style" style="background: #fd8d3c;"></span> 10 - 49</div> <br>' +
-			'<div><span class="legend-style" style="background: #feb24c;"></span> 5 - 9</div> <br>' +
-			'<div><span class="legend-style" style="background: #fed976;"></span> 2 - 4</div> <br>' +
-			'<div><span class="legend-style" style="background: #ffffb2;"></span> 1</div>';
+      legendContainer.innerHTML =
+        '<div><span class="legend-style" style="background: #b10026;"></span> > 300</div> <br>' +
+        '<div><span class="legend-style" style="background: #e31a1c;"></span> 100 - 299</div> <br>' +
+        '<div><span class="legend-style" style="background: #fc4e2a;"></span> 50 - 99</div> <br>' +
+        '<div><span class="legend-style" style="background: #fd8d3c;"></span> 10 - 49</div> <br>' +
+        '<div><span class="legend-style" style="background: #feb24c;"></span> 5 - 9</div> <br>' +
+        '<div><span class="legend-style" style="background: #fed976;"></span> 2 - 4</div> <br>' +
+        '<div><span class="legend-style" style="background: #ffffb2;"></span> 1</div>';
 
+      // Portrait warning functionality
+      function checkOrientationAndScreenSize() {
+        const isSmallScreen = window.innerWidth <= 768;
+        const isPortrait = window.innerHeight > window.innerWidth;
 
+        if (isSmallScreen && isPortrait) {
+          showPortraitWarning();
+        }
+      }
 
+      function showPortraitWarning() {
+        const warning = document.getElementById("portraitWarning");
+        warning.classList.add("show");
 
+        // Auto-hide after 5 seconds
+        setTimeout(function () {
+          closePortraitWarning();
+        }, 5000);
+      }
 
-	</script>
-</body>
+      function closePortraitWarning() {
+        const warning = document.getElementById("portraitWarning");
+        warning.classList.remove("show");
+      }
 
+      // Check on page load
+      window.addEventListener("load", checkOrientationAndScreenSize);
+
+      // Also check on orientation change
+      window.addEventListener("resize", function () {
+        const warning = document.getElementById("portraitWarning");
+        const isSmallScreen = window.innerWidth <= 768;
+        const isPortrait = window.innerHeight > window.innerWidth;
+
+        if (isSmallScreen && isPortrait) {
+          warning.classList.add("show");
+        } else {
+          warning.classList.remove("show");
+        }
+      });
+    </script>
+  </body>
 </html>
