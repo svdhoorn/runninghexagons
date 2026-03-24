@@ -54,14 +54,35 @@
         height: 100%;
         background-color: white;
         border-right: 2px solid #ddd;
-        overflow: hidden;
+        overflow-y: auto; /* Changed from 'hidden' to 'auto' */
+        overflow-x: hidden;
         transition: transform 0.3s ease-in-out;
         z-index: 10;
         padding: 20px;
+
+        /* Touch-friendly scrolling for iOS */
+        -webkit-overflow-scrolling: touch;
       }
 
       .sidebar h2 {
         text-align: center;
+      }
+
+      .sidebar::-webkit-scrollbar {
+        width: 6px;
+      }
+
+      .sidebar::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+
+      .sidebar::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 3px;
+      }
+
+      .sidebar::-webkit-scrollbar-thumb:hover {
+        background: #555;
       }
 
       /* Define the styles for the map */
@@ -177,7 +198,7 @@
       /* Portrait warning message */
       .portrait-warning {
         position: fixed;
-        top: 50%;
+        top: 25%;
         left: 0;
         width: 100%;
         height: 100%;
